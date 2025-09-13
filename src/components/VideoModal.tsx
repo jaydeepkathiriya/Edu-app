@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, ExternalLink } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { X } from 'lucide-react';
 
 interface VideoModalProps {
   isOpen: boolean;
@@ -8,6 +8,18 @@ interface VideoModalProps {
 }
 
 const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoUrl }) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -16,73 +28,50 @@ const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoUrl }) =>
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      onClose();
+    }
+  };
+
   return (
     <div 
-      className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/95 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={handleBackdropClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={-1}
     >
-      <div className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden">
+      <div className="relative w-full max-w-4xl mx-auto">
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
+          className="absolute -top-12 right-0 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors backdrop-blur-sm"
+          aria-label="Close video"
         >
-          <X className="w-6 h-6 text-gray-600" />
+          <X className="w-6 h-6 text-white" />
         </button>
         
-        {/* Content */}
-        <div className="p-8 text-center">
-          <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
+        {/* Video Container with Vimeo embed */}
+        <div className="bg-black rounded-2xl overflow-hidden shadow-2xl">
+          <div style={{ padding: '56.25% 0 0 0', position: 'relative' }}>
+            <iframe 
+              src="https://player.vimeo.com/video/1118402722?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1" 
+              frameBorder="0" 
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+              referrerPolicy="strict-origin-when-cross-origin" 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+              title="AmplifiED_From_Stress_to_Smarter_Learning"
+            />
           </div>
-          
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
-            Watch AmplifiED Demo
+        </div>
+        
+        {/* Video Info */}
+        <div className="mt-6 text-center">
+          <h3 className="text-xl font-semibold text-white mb-2">
+            AmplifiED Demo: From Stress to Smarter Learning
           </h3>
-          
-          <p className="text-gray-600 mb-8 leading-relaxed">
-            See how AmplifiED transforms video lectures into comprehensive learning materials 
-            in just minutes. This demo shows the complete workflow from upload to study guides.
-          </p>
-          
-          {/* Demo features */}
-          <div className="bg-gray-50 rounded-xl p-6 mb-8">
-            <h4 className="font-semibold text-gray-900 mb-4">What you'll see in this demo:</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-600">
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                Video upload process
-              </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                AI transcription in action
-              </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
-                Smart summarization
-              </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
-                Quiz & flashcard generation
-              </div>
-            </div>
-          </div>
-          
-          {/* CTA Button */}
-          <a
-            href={videoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 group"
-          >
-            Watch Demo Video
-            <ExternalLink className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </a>
-          
-          <p className="text-sm text-gray-500 mt-4">
-            Opens in a new tab • 3 minutes
+          <p className="text-gray-300 text-sm">
+            See how AmplifiED transforms video lectures into comprehensive study materials
           </p>
         </div>
       </div>
