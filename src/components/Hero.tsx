@@ -4,7 +4,7 @@ import VideoModal from './VideoModal';
 
 const Hero = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = React.useState(false);
-  const demoVideoUrl = 'https://drive.google.com/file/d/1XS43I5KwUMmuHjYbKMqm6vqJeOGMuwae/view?usp=sharing';
+  const demoVideoUrl = 'https://vimeo.com/1118402722';
 
   return (
     <>
