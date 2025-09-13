@@ -116,13 +116,9 @@ const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoUrl }) =>
               <p className="text-gray-600 mb-4">
                 Join thousands of educators who are already saving hours while improving student outcomes.
               </p>
-              <a 
-                href="/signup"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-200 inline-flex items-center"
-              >
-                Start Free Trial
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </a>
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold inline-flex items-center">
+                <span>Experience the Power of AI-Driven Education</span>
+              </div>
             </div>
           </div>
         </div>
