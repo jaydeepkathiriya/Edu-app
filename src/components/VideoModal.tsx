@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, Play, ExternalLink } from 'lucide-react';
 
 interface VideoModalProps {
   isOpen: boolean;
@@ -34,6 +34,10 @@ const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoUrl }) =>
     }
   };
 
+  const openVideoInNewTab = () => {
+    window.open(videoUrl, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div 
       className="fixed inset-0 bg-black/95 backdrop-blur-sm z-50 flex items-center justify-center p-4"
@@ -41,38 +45,84 @@ const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoUrl }) =>
       onKeyDown={handleKeyDown}
       tabIndex={-1}
     >
-      <div className="relative w-full max-w-4xl mx-auto">
+      <div className="relative w-full max-w-2xl mx-auto">
         {/* Close button */}
         <button
           onClick={onClose}
           className="absolute -top-12 right-0 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors backdrop-blur-sm"
-          aria-label="Close video"
+          aria-label="Close modal"
         >
           <X className="w-6 h-6 text-white" />
         </button>
         
-        {/* Video Container with Vimeo embed */}
-        <div className="bg-black rounded-2xl overflow-hidden shadow-2xl">
-          <div style={{ padding: '56.25% 0 0 0', position: 'relative' }}>
-            <iframe 
-              src="https://player.vimeo.com/video/1118402722?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1" 
-              frameBorder="0" 
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
-              referrerPolicy="strict-origin-when-cross-origin" 
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-              title="AmplifiED_From_Stress_to_Smarter_Learning"
-            />
+        {/* Modal Content */}
+        <div className="bg-white rounded-2xl overflow-hidden shadow-2xl">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white text-center">
+            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Play className="w-8 h-8 text-white ml-1" />
+            </div>
+            <h3 className="text-2xl font-bold mb-2">
+              AmplifiED Demo Video
+            </h3>
+            <p className="text-blue-100">
+              See how AmplifiED transforms video lectures into comprehensive study materials
+            </p>
           </div>
-        </div>
-        
-        {/* Video Info */}
-        <div className="mt-6 text-center">
-          <h3 className="text-xl font-semibold text-white mb-2">
-            AmplifiED Demo: From Stress to Smarter Learning
-          </h3>
-          <p className="text-gray-300 text-sm">
-            See how AmplifiED transforms video lectures into comprehensive study materials
-          </p>
+
+          {/* Content */}
+          <div className="p-8">
+            <div className="text-center mb-8">
+              <h4 className="text-xl font-semibold text-gray-900 mb-4">
+                What you'll see in this demo:
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <div>
+                    <div className="font-medium text-gray-900">Video Upload</div>
+                    <div className="text-sm text-gray-600">Simple drag-and-drop interface</div>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <div>
+                    <div className="font-medium text-gray-900">AI Transcription</div>
+                    <div className="text-sm text-gray-600">99.5% accuracy with timestamps</div>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-teal-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <div>
+                    <div className="font-medium text-gray-900">Smart Summaries</div>
+                    <div className="text-sm text-gray-600">Key concepts extracted</div>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <div>
+                    <div className="font-medium text-gray-900">Quiz Generation</div>
+                    <div className="text-sm text-gray-600">Interactive questions created</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="text-center">
+              <button
+                onClick={openVideoInNewTab}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center mx-auto group"
+              >
+                <Play className="w-5 h-5 mr-2" />
+                Watch Demo Video
+                <ExternalLink className="w-4 h-4 ml-2 opacity-70" />
+              </button>
+              <p className="text-sm text-gray-500 mt-3">
+                Opens in a new tab • 3 minutes
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
