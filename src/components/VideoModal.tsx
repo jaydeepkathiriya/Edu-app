@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, Play, ExternalLink } from 'lucide-react';
+import { X, Play, ArrowRight } from 'lucide-react';
 
 interface VideoModalProps {
   isOpen: boolean;
@@ -108,19 +108,21 @@ const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoUrl }) =>
               </div>
             </div>
 
-            {/* CTA Button */}
-            <div className="text-center">
-              <button
-                onClick={openVideoInNewTab}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center mx-auto group"
-              >
-                <Play className="w-5 h-5 mr-2" />
-                Watch Demo Video
-                <ExternalLink className="w-4 h-4 ml-2 opacity-70" />
-              </button>
-              <p className="text-sm text-gray-500 mt-3">
-                Opens in a new tab • 3 minutes
+            {/* Information Section */}
+            <div className="text-center bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6">
+              <h5 className="text-lg font-semibold text-gray-900 mb-2">
+                Ready to Transform Your Teaching?
+              </h5>
+              <p className="text-gray-600 mb-4">
+                Join thousands of educators who are already saving hours while improving student outcomes.
               </p>
+              <a 
+                href="/signup"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-200 inline-flex items-center"
+              >
+                Start Free Trial
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </a>
             </div>
           </div>
         </div>
