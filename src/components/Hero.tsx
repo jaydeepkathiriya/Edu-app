@@ -1,9 +1,14 @@
 import React from 'react';
 import { Play, ArrowRight } from 'lucide-react';
+import VideoModal from './VideoModal';
 
 const Hero = () => {
+  const [isVideoModalOpen, setIsVideoModalOpen] = React.useState(false);
+  const demoVideoUrl = 'https://drive.google.com/file/d/1XS43I5KwUMmuHjYbKMqm6vqJeOGMuwae/view?usp=drive_link';
+
   return (
-    <section className="relative bg-gradient-to-br from-blue-50 to-purple-50 pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden">
+    <>
+      <section className="relative bg-gradient-to-br from-blue-50 to-purple-50 pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2"></div>
@@ -37,17 +42,15 @@ const Hero = () => {
               Start Free Trial
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
-            <a 
-              href="https://drive.google.com/file/d/1XS43I5KwUMmuHjYbKMqm6vqJeOGMuwae/view?usp=drive_link" 
-              target="_blank" 
-              rel="noopener noreferrer"
+            <button
+              onClick={() => setIsVideoModalOpen(true)}
               className="flex items-center px-8 py-4 text-lg font-semibold text-gray-700 hover:text-gray-900 transition-colors group"
             >
               <div className="w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center mr-3 group-hover:bg-white transition-colors">
                 <Play className="w-5 h-5 text-blue-600 ml-0.5" />
               </div>
               Watch Demo
-            </a>
+            </button>
           </div>
 
           {/* Social Proof */}
@@ -76,7 +79,14 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+      
+      <VideoModal 
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+        videoUrl={demoVideoUrl}
+      />
+    </>
   );
 };
 
