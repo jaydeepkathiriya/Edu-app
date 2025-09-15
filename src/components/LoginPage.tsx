@@ -189,6 +189,33 @@ const LoginPage = () => {
             </a>
           </div>
         </form>
+
+        {/* Home Link */}
+        <div className="text-center mt-6">
+          <div className="flex items-center justify-center space-x-4 text-sm">
+            <a 
+              href="/"
+              className="inline-flex items-center text-gray-600 hover:text-blue-600 font-medium transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Home
+            </a>
+            <span className="text-gray-400">|</span>
+            <a 
+              href="/signup"
+              className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
+            >
+              Don't have an account? Sign up
+            </a>
+          </div>
+        </div>
+
+        {/* Forgot Password */}
+        <div className="text-center mt-4">
+          <a href="#" className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors">
+            Forgot your password?
+          </a>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, LogOut, Upload, FileText, HelpCircle, CreditCard, Play, BarChart3, TrendingUp, Clock, Award, ChevronRight, X } from 'lucide-react';
+import { BookOpen, LogOut, Upload, FileText, HelpCircle, CreditCard, Play, BarChart3, TrendingUp, Clock, Award, ChevronRight, X, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
