@@ -187,47 +187,6 @@ const LoginPage = () => {
             >
               Start Free Trial
             </a>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className={`flex-1 bg-gray-800 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-200 ${
-                isLoading 
-                  ? 'opacity-80 cursor-not-allowed' 
-                  : 'hover:bg-gray-700 hover:shadow-lg hover:-translate-y-1'
-              }`}
-            >
-              {isLoading ? (
-                <div className="flex items-center justify-center">
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                  Signing In...
-                </div>
-              ) : (
-                'Sign In'
-              )}
-            </button>
-          </div>
-        </form>
-
-        {/* Navigation Links */}
-        <div className="text-center mt-6">
-          <div className="flex items-center justify-center space-x-4 text-sm">
-            <a 
-              href="/"
-              className="inline-flex items-center text-gray-600 hover:text-blue-600 font-medium transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
-            </a>
-          </div>
-        </div>
-
-        {/* Forgot Password */}
-        <div className="text-center mt-4">
-          <button className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
-            Forgot your password?
-          </button>
-        </div>
-      </div>
     </div>
   );
 };
