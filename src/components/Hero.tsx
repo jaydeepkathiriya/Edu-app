@@ -25,8 +25,8 @@ const Hero = () => {
           {/* Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
          
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Video Lectures </span>
-            Into Powerful Learning Tools
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Transform Education </span>
+            Into AI Powered Learning Tools
           </h1>
 
           {/* Subheadline */}
