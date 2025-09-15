@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { BookOpen, ArrowLeft, CheckCircle } from 'lucide-react';
+import { BookOpen, ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const SignupPage = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState({ email: '', password: '' });
-  const [success, setSuccess] = useState(false);
-  const { signUp } = useAuth();
+  const [errors, setErrors] = useState({ email: '', password: '', general: '' });
+  const { signIn } = useAuth();
   const navigate = useNavigate();
 
   const validateForm = () => {
-    const newErrors = { email: '', password: '' };
+    const newErrors = { email: '', password: '', general: '' };
     
     if (!email) {
       newErrors.email = 'Email is required';
@@ -23,8 +23,6 @@ const SignupPage = () => {
     
     if (!password) {
       newErrors.password = 'Password is required';
-    } else if (password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters';
     }
     
     setErrors(newErrors);
@@ -37,26 +35,24 @@ const SignupPage = () => {
     if (!validateForm()) return;
     
     setIsLoading(true);
-    setErrors({ email: '', password: '' });
+    setErrors({ email: '', password: '', general: '' });
     
     try {
-      const { error } = await signUp(email, password);
+      const { error } = await signIn(email, password);
       
       if (error) {
-        if (error.message.includes('email')) {
+        if (error.message.includes('Invalid login credentials')) {
+          setErrors(prev => ({ ...prev, general: 'Invalid email or password' }));
+        } else if (error.message.includes('email')) {
           setErrors(prev => ({ ...prev, email: error.message }));
         } else {
-          setErrors(prev => ({ ...prev, password: error.message }));
+          setErrors(prev => ({ ...prev, general: error.message }));
         }
       } else {
-        setSuccess(true);
-        // Redirect to dashboard after 2 seconds
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 2000);
+        navigate('/dashboard');
       }
     } catch (error) {
-      setErrors(prev => ({ ...prev, password: 'An unexpected error occurred' }));
+      setErrors(prev => ({ ...prev, general: 'An unexpected error occurred' }));
     } finally {
       setIsLoading(false);
     }
@@ -70,6 +66,7 @@ const SignupPage = () => {
       setPassword(value);
       if (errors.password) setErrors(prev => ({ ...prev, password: '' }));
     }
+    if (errors.general) setErrors(prev => ({ ...prev, general: '' }));
   };
 
   return (
@@ -91,20 +88,18 @@ const SignupPage = () => {
         {/* Heading */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-3">
-            Start Your Free Trial
+            Welcome Back
           </h1>
           <p className="text-lg text-gray-600">
-            Unlock your potential with AmplifiED today
+            Sign in to your AmplifiED account
           </p>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          {success && (
-            <div className="bg-green-50 border border-green-200 rounded-xl p-4 text-center">
-              <CheckCircle className="w-6 h-6 text-green-600 mx-auto mb-2" />
-              <p className="text-green-800 font-medium">Account created successfully!</p>
-              <p className="text-green-600 text-sm">Redirecting to dashboard...</p>
+          {errors.general && (
+            <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-center">
+              <p className="text-red-800 text-sm">{errors.general}</p>
             </div>
           )}
           
@@ -136,22 +131,30 @@ const SignupPage = () => {
             <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
               Password
             </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => handleInputChange('password', e.target.value)}
-              className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 transition-all duration-200 focus:outline-none focus:bg-white ${
-                errors.password 
-                  ? 'border-red-300 focus:border-red-500' 
-                  : password && !errors.password 
-                    ? 'border-green-300 focus:border-green-500'
-                    : 'border-gray-200 focus:border-blue-500'
-              }`}
-              placeholder="Create a secure password"
-              minLength={8}
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                value={password}
+                onChange={(e) => handleInputChange('password', e.target.value)}
+                className={`w-full px-4 py-3 pr-12 border-2 rounded-xl bg-gray-50 transition-all duration-200 focus:outline-none focus:bg-white ${
+                  errors.password 
+                    ? 'border-red-300 focus:border-red-500' 
+                    : password && !errors.password 
+                      ? 'border-green-300 focus:border-green-500'
+                      : 'border-gray-200 focus:border-blue-500'
+                }`}
+                placeholder="Enter your password"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
+            </div>
             {errors.password && (
               <p className="mt-1 text-sm text-red-600">{errors.password}</p>
             )}
@@ -169,15 +172,15 @@ const SignupPage = () => {
             {isLoading ? (
               <div className="flex items-center justify-center">
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                Creating Account...
+                Signing In...
               </div>
             ) : (
-              'Start Free Trial'
+              'Sign In'
             )}
           </button>
         </form>
 
-        {/* Home Link */}
+        {/* Navigation Links */}
         <div className="text-center mt-6">
           <div className="flex items-center justify-center space-x-4 text-sm">
             <a 
@@ -189,36 +192,23 @@ const SignupPage = () => {
             </a>
             <span className="text-gray-400">|</span>
             <a 
-              href="/login"
+              href="/signup"
               className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
             >
-              Already have an account? Sign in
+              Create an account
             </a>
           </div>
         </div>
 
-        {/* Features List */}
-        <div className="mt-8 pt-6 border-t border-gray-100">
-          <h3 className="text-sm font-semibold text-gray-700 text-center mb-4">
-            What's included in your free trial:
-          </h3>
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              'Video transcription',
-              'AI summaries', 
-              'Quiz generation',
-              'Study guides'
-            ].map((feature, index) => (
-              <div key={index} className="flex items-center text-xs text-gray-600">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                {feature}
-              </div>
-            ))}
-          </div>
+        {/* Forgot Password */}
+        <div className="text-center mt-4">
+          <button className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
+            Forgot your password?
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default SignupPage;
+export default LoginPage;

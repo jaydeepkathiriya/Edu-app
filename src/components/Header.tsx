@@ -39,9 +39,14 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <a href="/signup" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
-              Get Started Free
-            </a>
+            <div className="flex items-center space-x-3">
+              <a href="/login" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">
+                Sign In
+              </a>
+              <a href="/signup" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+                Get Started Free
+              </a>
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -71,6 +76,9 @@ const Header = () => {
               </a>
               <a href="#contact" className="text-gray-600 hover:text-gray-900 font-medium">
                 Contact
+              </a>
+              <a href="/login" className="text-gray-600 hover:text-gray-900 font-medium">
+                Sign In
               </a>
               <a href="/signup" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 rounded-lg font-semibold self-start">
                 Get Started Free
