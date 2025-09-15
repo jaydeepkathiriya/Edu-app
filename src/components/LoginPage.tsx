@@ -187,6 +187,9 @@ const LoginPage = () => {
             >
               Start Free Trial
             </a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
