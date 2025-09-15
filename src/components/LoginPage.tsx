@@ -178,6 +178,34 @@ const LoginPage = () => {
               'Sign In'
             )}
           </button>
+
+          {/* Adjacent Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 mt-4">
+            <a 
+              href="/signup"
+              className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold text-center transition-all duration-200 hover:shadow-lg hover:-translate-y-1"
+            >
+              Start Free Trial
+            </a>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className={`flex-1 bg-gray-800 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-200 ${
+                isLoading 
+                  ? 'opacity-80 cursor-not-allowed' 
+                  : 'hover:bg-gray-700 hover:shadow-lg hover:-translate-y-1'
+              }`}
+            >
+              {isLoading ? (
+                <div className="flex items-center justify-center">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                  Signing In...
+                </div>
+              ) : (
+                'Sign In'
+              )}
+            </button>
+          </div>
         </form>
 
         {/* Navigation Links */}
@@ -189,13 +217,6 @@ const LoginPage = () => {
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
-            </a>
-            <span className="text-gray-400">|</span>
-            <a 
-              href="/signup"
-              className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
-            >
-              Create an account
             </a>
           </div>
         </div>
