@@ -1,5 +1,6 @@
 import React from 'react';
 import { FileText, BookOpen, HelpCircle, CreditCard, FolderOpen, Video } from 'lucide-react';
+import { DisplayCardsDemo } from './ui/display-cards-demo';
 
 const Features = () => {
   const features = [
@@ -103,6 +104,19 @@ const Features = () => {
           <button className="bg-white text-blue-600 px-8 py-3 rounded-xl font-bold hover:bg-gray-100 transition-colors">
             See It In Action
           </button>
+        </div>
+
+        {/* Interactive Feature Cards */}
+        <div className="mt-16">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              Experience Our Core Features
+            </h3>
+            <p className="text-gray-600 text-lg">
+              Hover over the cards to see our key features in action
+            </p>
+          </div>
+          <DisplayCardsDemo />
         </div>
       </div>
     </section>
