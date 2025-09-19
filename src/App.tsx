@@ -10,6 +10,7 @@ import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
+import DisplayCardsShowcase from './components/DisplayCardsShowcase';
 import SignupPage from './components/SignupPage';
 import LoginPage from './components/LoginPage';
 import Dashboard from './components/Dashboard';
@@ -27,6 +28,7 @@ function App() {
               <>
                 <Header />
                 <Hero />
+                <DisplayCardsShowcase />
                 <Benefits />
                 <Features />
                 <HowItWorks />

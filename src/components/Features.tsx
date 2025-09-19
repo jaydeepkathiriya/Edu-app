@@ -107,17 +107,6 @@ const Features = () => {
         </div>
 
         {/* Interactive Feature Cards */}
-        <div className="mt-16">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              Experience Our Core Features
-            </h3>
-            <p className="text-gray-600 text-lg">
-              Hover over the cards to see our key features in action
-            </p>
-          </div>
-          <DisplayCardsDemo />
-        </div>
       </div>
     </section>
   );
