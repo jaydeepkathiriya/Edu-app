@@ -41,10 +41,14 @@ const LoginPage = () => {
       const { error } = await signIn(email, password);
       
       if (error) {
-        if (error.message.includes('Invalid login credentials')) {
+        if (error.message.includes('Invalid login credentials') || error.message.includes('Password must be at least 6 characters')) {
           setErrors(prev => ({ ...prev, general: 'Invalid email or password' }));
+        } else if (error.message.includes('Invalid email format')) {
+          setErrors(prev => ({ ...prev, email: 'Please enter a valid email address' }));
         } else if (error.message.includes('email')) {
           setErrors(prev => ({ ...prev, email: error.message }));
+        } else if (error.message.includes('Authentication service unavailable')) {
+          setErrors(prev => ({ ...prev, general: 'Authentication service is currently unavailable. Please try again later.' }));
         } else {
           setErrors(prev => ({ ...prev, general: error.message }));
         }
@@ -52,7 +56,7 @@ const LoginPage = () => {
         navigate('/dashboard');
       }
     } catch (error) {
-      setErrors(prev => ({ ...prev, general: 'An unexpected error occurred' }));
+      setErrors(prev => ({ ...prev, general: 'Network error. Please check your connection and try again.' }));
     } finally {
       setIsLoading(false);
     }

@@ -27,47 +27,81 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      setUser(session?.user ?? null)
+    // Check if we're in demo mode
+    const isDemo = !import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY
+    
+    if (isDemo) {
+      // Demo mode - just set loading to false
       setLoading(false)
-    })
+      return
+    }
 
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-      setUser(session?.user ?? null)
+    // Only set up Supabase auth if we have proper credentials
+    if (supabase) {
+      // Get initial session
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        setSession(session)
+        setUser(session?.user ?? null)
+        setLoading(false)
+      })
+
+      // Listen for auth changes
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange((_event, session) => {
+        setSession(session)
+        setUser(session?.user ?? null)
+        setLoading(false)
+      })
+
+      return () => subscription.unsubscribe()
+    } else {
       setLoading(false)
-    })
-
-    return () => subscription.unsubscribe()
+    }
   }, [])
 
   const signUp = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${window.location.origin}/dashboard`
+    try {
+      const result = await import('../lib/supabase').then(module => module.signUp(email, password))
+      
+      // If successful and we have a user, set it in state
+      if (result.data?.user && !result.error) {
+        setUser(result.data.user as User)
       }
-    })
-    return { data, error }
+      
+      return result
+    } catch (error) {
+      return { data: null, error: { message: 'Authentication service unavailable' } }
+    }
   }
 
   const signIn = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    })
-    return { data, error }
+    try {
+      const result = await import('../lib/supabase').then(module => module.signIn(email, password))
+      
+      // If successful and we have a user, set it in state
+      if (result.data?.user && !result.error) {
+        setUser(result.data.user as User)
+      }
+      
+      return result
+    } catch (error) {
+      return { data: null, error: { message: 'Authentication service unavailable' } }
+    }
   }
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut()
-    return { error }
+    try {
+      const result = await import('../lib/supabase').then(module => module.signOut())
+      
+      // Clear user state
+      setUser(null)
+      setSession(null)
+      
+      return result
+    } catch (error) {
+      return { error: { message: 'Sign out failed' } }
+    }
   }
 
   const value = {
