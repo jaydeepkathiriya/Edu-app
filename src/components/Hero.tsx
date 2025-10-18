@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Play, ArrowRight } from 'lucide-react';
 import VideoModal from './VideoModal';
 
 const Hero = () => {
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   return (
+    <>
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+        videoUrl="https://www.youtube.com/embed/YUDTlS6Qzbs?si=hbsNcQaSjgzMzfd4"
+      />
     <section className="relative bg-gradient-to-br from-blue-50 to-purple-50 pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
@@ -39,12 +46,15 @@ const Hero = () => {
               Start Free Trial
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
-            <div className="flex items-center px-8 py-4 text-lg font-semibold text-gray-700 cursor-default">
+            <button
+              onClick={() => setIsVideoModalOpen(true)}
+              className="flex items-center px-8 py-4 text-lg font-semibold text-gray-700 hover:text-gray-900 transition-colors group cursor-pointer"
+            >
               <div className="w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center mr-3 group-hover:bg-white transition-colors">
                 <Play className="w-5 h-5 text-blue-600 ml-0.5" />
               </div>
               Watch Demo
-            </div>
+            </button>
           </div>
 
           {/* Social Proof */}
@@ -74,6 +84,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

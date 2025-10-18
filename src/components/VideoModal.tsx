@@ -70,42 +70,20 @@ const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoUrl }) =>
             </p>
           </div>
 
-          {/* Content */}
+          {/* Video Content */}
           <div className="p-8">
-            <div className="text-center mb-8">
-              <h4 className="text-xl font-semibold text-gray-900 mb-4">
-                What you'll see in this demo:
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <div>
-                    <div className="font-medium text-gray-900">Video Upload</div>
-                    <div className="text-sm text-gray-600">Simple drag-and-drop interface</div>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <div>
-                    <div className="font-medium text-gray-900">AI Transcription</div>
-                    <div className="text-sm text-gray-600">99.5% accuracy with timestamps</div>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-teal-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <div>
-                    <div className="font-medium text-gray-900">Smart Summaries</div>
-                    <div className="text-sm text-gray-600">Key concepts extracted</div>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <div>
-                    <div className="font-medium text-gray-900">Quiz Generation</div>
-                    <div className="text-sm text-gray-600">Interactive questions created</div>
-                  </div>
-                </div>
-              </div>
+            <div className="aspect-video w-full bg-gray-900 rounded-lg overflow-hidden mb-6">
+              <iframe
+                width="100%"
+                height="100%"
+                src={videoUrl}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="w-full h-full"
+              ></iframe>
             </div>
 
             {/* Information Section */}
@@ -116,9 +94,13 @@ const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoUrl }) =>
               <p className="text-gray-600 mb-4">
                 Join thousands of educators who are already saving hours while improving student outcomes.
               </p>
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold inline-flex items-center">
-                <span>Experience the Power of AI-Driven Education</span>
-              </div>
+              <a
+                href="/signup"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold inline-flex items-center hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
+              >
+                <span>Start Free Trial</span>
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </a>
             </div>
           </div>
         </div>
