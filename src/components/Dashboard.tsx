@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BookOpen, LogOut, Upload, FileText, HelpCircle, CreditCard, Play, BarChart3, TrendingUp, Clock, Award, ChevronRight, X, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -11,14 +11,21 @@ const Dashboard = () => {
   const [showQuizModal, setShowQuizModal] = useState(false);
   const [showFlashcardModal, setShowFlashcardModal] = useState(false);
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
+  const isSigningOut = useRef(false);
+
+  useEffect(() => {
+    if (!user && !isSigningOut.current) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
 
   const handleSignOut = async () => {
+    isSigningOut.current = true;
     await signOut();
-    navigate('/');
+    navigate('/', { replace: true });
   };
 
   if (!user) {
-    navigate('/login');
     return null;
   }
 
