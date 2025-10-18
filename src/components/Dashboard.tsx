@@ -13,10 +13,8 @@ const Dashboard = () => {
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
 
   const handleSignOut = async () => {
-    const { error } = await signOut();
-    if (!error) {
-      navigate('/');
-    }
+    await signOut();
+    navigate('/');
   };
 
   if (!user) {
