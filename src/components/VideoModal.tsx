@@ -45,7 +45,7 @@ const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoUrl }) =>
       onKeyDown={handleKeyDown}
       tabIndex={-1}
     >
-      <div className="relative w-full max-w-2xl mx-auto">
+      <div className="relative w-full max-w-4xl mx-auto">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -72,17 +72,17 @@ const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoUrl }) =>
 
           {/* Video Content */}
           <div className="p-8">
-            <div className="aspect-video w-full bg-gray-900 rounded-lg overflow-hidden mb-6">
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
-                width="100%"
-                height="100%"
                 src={videoUrl}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
-                className="w-full h-full"
+                className="absolute top-0 left-0 w-full h-full rounded-lg"
+                style={{ border: 'none' }}
               ></iframe>
             </div>
+            <div className="h-6"></div>
 
             {/* Information Section */}
             <div className="text-center bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6">
