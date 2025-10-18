@@ -10,7 +10,7 @@ const Hero = () => {
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoUrl="https://www.youtube.com/embed/YUDTlS6Qzbs?si=hbsNcQaSjgzMzfd4"
+        videoUrl="https://www.youtube-nocookie.com/embed/YUDTlS6Qzbs"
       />
     <section className="relative bg-gradient-to-br from-blue-50 to-purple-50 pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden">
       {/* Background decoration */}
