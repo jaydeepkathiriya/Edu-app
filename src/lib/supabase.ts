@@ -1,12 +1,9 @@
 import { createClient } from '@supabase/supabase-js'
 
-// For demo purposes, we'll use placeholder values
-// In production, you would get these from your Supabase project
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://your-project.supabase.co'
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key'
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-// Create a mock client for demo purposes if env vars are not set
-const isDemo = !import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY
+const isDemo = !supabaseUrl || !supabaseAnonKey
 
 export const supabase = isDemo ? null : createClient(supabaseUrl, supabaseAnonKey)
 
